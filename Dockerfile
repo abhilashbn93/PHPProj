@@ -1,5 +1,5 @@
 FROM devopsedu/webapp
-COPY projCert /var/www/html/projCert
+COPY website /var/www/html/website
 CMD ["-D", "FOREGROUND"]
 ENTRYPOINT ["/usr/sbin/apachectl"]
 EXPOSE 80
