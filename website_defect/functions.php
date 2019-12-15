@@ -21,13 +21,9 @@ function siteVersion()
  */
 function navMenu($sep = ' | ')
 {
-    $nav_menu = '';
 
     foreach (config('nav_menu') as $uri => $name) {
-        $nav_menu .= '<a id="'.$name.'" href="/'.(config('pretty_uri') || $uri == '' ? '' : '?page=').$uri.'">'.$name.'</a>'.$sep;
-    }
 
-    echo trim($nav_menu, $sep);
 }
 
 /**
@@ -37,7 +33,7 @@ function navMenu($sep = ' | ')
  */
 function pageTitle()
 {
-    $page = isset($_GET['page']) ? htmlspecialchars($_GET['page']) : 'Home';
+
 
     echo ucwords(str_replace('-', ' ', $page));
 }
@@ -46,14 +42,9 @@ function pageTitle()
  * Displays page content. It takes the data from 
  * the static pages inside the pages/ directory.
  * When not found, display the 404 error page.
- */
-function pageContent()
+
 {
-    $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-    $path = getcwd().'/'.config('content_path').'/'.$page.'.php';
-
-    if (file_exists(filter_var($path, FILTER_SANITIZE_URL))) {
         include $path;
     } else {
         include config('content_path').'/template.php';
@@ -63,7 +54,7 @@ function pageContent()
 /**
  * Starts everything and displays the template.
  */
-function run()
+fun
 {
     include config('template_path').'/template.php';
 }
