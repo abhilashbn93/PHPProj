@@ -39,7 +39,7 @@ do
         cut -d "#" -f"$j" get_test_id.json_1 > get_test_id.json_"$j"
 		sed "0,/\"key\":\"${TKEY[$i]}\"/{s/\"key\":\"${TKEY[$i]}\"/@\"key\":\"${TKEY[$i]}\"/}" get_test_id.json_"$j" > get_test_id.json_"$j"_temp1
 		cut -d "@" -f1 get_test_id.json_"$j"_temp1 > get_test_id.json_"$j"_temp2
-		#ID[$i]=$(echo $(cat get_test_id.json_"$j"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/')
+		ID[$i]=$(echo $(cat get_test_id.json_"$j"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/')
 		echo $(cat get_test_id.json_"$j"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/'
 done
 
@@ -59,7 +59,7 @@ do
 	cut -d "@" -f1 get_test_execution_id.json_"$i"_temp1 > get_test_execution_id.json_"$i"_temp2
 	EXID[$i]=$(echo $(cat get_test_execution_id.json_"$i"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/')
 done
-//rm -rf get_test_execution_id.json*
+rm -rf get_test_execution_id.json*
 
 echo "${EXID[*]}"
 ###Update the Test Status in Zephyr based on the Test Execution ID obtained###
