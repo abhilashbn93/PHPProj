@@ -152,15 +152,17 @@ pipeline  {
 	
 		failure  {
 
-            			echo 'Test failed'
-                  		sh """
-                    		tid=\$(cat tid_temp)
-                    		echo "\${tid}"
-                   		bash -c \" source ./update_failed_test.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} \${tid}\"
-				sudo docker rm -f \$(sudo docker ps -a -q)
-                    		"""
-        		}
-		
+			node ( 'slave_node' )	{
+				script	{
+					echo 'Test failed'
+                  			sh """
+                    			tid=\$(cat tid_temp)
+                    			echo "\${tid}"
+                   			bash -c \" source ./update_failed_test.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} \${tid}\"
+					sudo docker rm -f \$(sudo docker ps -a -q)
+                    			"""
+        			}
+			}
+		}
 	 }
-  
 }
