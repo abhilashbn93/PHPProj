@@ -3,13 +3,13 @@ def i = 0
 
 pipeline  {
     
-	agent none
+    agent none
     
     environment  {
 				
 		GITHUB_COMMON_CREDS = credentials('jenkins-github-common-creds') //Github credentials are mapped to the ID 'jenkins-github-common-creds' setup in Jenkins
 			
-	}
+    }
     
     stages  { 
 		
@@ -152,12 +152,13 @@ pipeline  {
 	
 				failure  {
 
-            		echo 'Test failed'
-                  	sh """
-                    tid=\$(cat tid_temp)
-                    echo "\${tid}"
-                   	bash -c \" source ./update_failed_test.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} \${tid}\"
-                    """
+            				echo 'Test failed'
+                  			sh """
+                    			tid=\$(cat tid_temp)
+                    			echo "\${tid}"
+                   			bash -c \" source ./update_failed_test.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} \${tid}\"
+					sudo docker rm -f $(sudo docker ps -a -q)
+                    			"""
         		}
 		
 		}
