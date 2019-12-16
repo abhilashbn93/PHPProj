@@ -17,7 +17,7 @@ pipeline  {
 			
 			agent { label 'slave_node'}
 
-				steps  {
+				//steps  {
 						
 					properties (
 						[office365ConnectorWebhooks([
@@ -36,7 +36,7 @@ pipeline  {
 					sudo systemctl status puppet
 					"""
 						
-				}
+				//}
 					
 		}
 		
