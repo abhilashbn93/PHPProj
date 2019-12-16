@@ -53,7 +53,7 @@ pipeline  {
 
 					sh """
 					sudo /opt/puppetlabs/bin/puppet cert list
-					//sudo /opt/puppetlabs/bin/puppet cert sign "slave.joha155tytoeblqpel2h10tp0f.bx.internal.cloudapp.net"
+					#sudo /opt/puppetlabs/bin/puppet cert sign "slave.joha155tytoeblqpel2h10tp0f.bx.internal.cloudapp.net"
 					"""
 						
 				}
