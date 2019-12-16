@@ -147,20 +147,20 @@ pipeline  {
 				}
 					
 		}
-            
-		post {
+    }         
+    post {
 	
-				failure  {
+		failure  {
 
-            				echo 'Test failed'
-                  			sh """
-                    			tid=\$(cat tid_temp)
-                    			echo "\${tid}"
-                   			bash -c \" source ./update_failed_test.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} \${tid}\"
-					sudo docker rm -f \$(sudo docker ps -a -q)
-                    			"""
+            			echo 'Test failed'
+                  		sh """
+                    		tid=\$(cat tid_temp)
+                    		echo "\${tid}"
+                   		bash -c \" source ./update_failed_test.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} \${tid}\"
+				sudo docker rm -f \$(sudo docker ps -a -q)
+                    		"""
         		}
 		
-		}
-  }
+	 }
+  
 }
