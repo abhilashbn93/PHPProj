@@ -8,6 +8,7 @@ pipeline  {
     environment  {
 				
 		GITHUB_COMMON_CREDS = credentials('jenkins-github-common-creds') //Github credentials are mapped to the ID 'jenkins-github-common-creds' setup in Jenkins
+	    	GITHUB_JIRA_COMMON_CREDS = credentials('jenkins-jira-common-creds') //JIRA credentials are mapped to the ID 'jenkins-jira-common-creds' setup in Jenkins
 			
     }
     
@@ -115,8 +116,8 @@ pipeline  {
 						def test_key=[] //Groovy Array List to store the list of Test Keys associated with the Story ID 
 						env.StoryId="DEL-1"
 						sh """
-						bash -c \" source ./get_test_ids.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} ${env.StoryId} \" > get_testids_response
-						bash -c \" source ./get_test_keys.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} ${env.StoryId} \" > get_testkeys_response
+						bash -c \" source ./get_test_ids.sh ${GITHUB_JIRA_COMMON_CREDS_USR} ${GITHUB_JIRA_COMMON_CREDS_PSW} ${env.StoryId} \" > get_testids_response
+						bash -c \" source ./get_test_keys.sh ${GITHUB_JIRA_COMMON_CREDS_USR} ${GITHUB_JIRA_COMMON_CREDS_PSW} ${env.StoryId} \" > get_testkeys_response
 						"""
 						get_tid = readFile 'get_testids_response' 
 						get_tkey = readFile 'get_testkeys_response'
@@ -130,7 +131,7 @@ pipeline  {
 							cat tid_temp
 							cd "/home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/"
 							sudo su -c \"java -jar /home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/AppTest.jar\" ubuntu
-							bash -c \" source ./update_passed_test.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} ${test_id[i]} \"
+							bash -c \" source ./update_passed_test.sh ${GITHUB_JIRA_COMMON_CREDS_USR} ${GITHUB_JIRA_COMMON_CREDS_PSW} ${test_id[i]} \"
 							"""
 							i++
 						}
@@ -170,7 +171,7 @@ pipeline  {
                   			sh """
                     			tid=\$(cat tid_temp)
                     			echo "\${tid}"
-                   			bash -c \" source ./update_failed_test.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} \${tid}\"
+                   			bash -c \" source ./update_failed_test.sh ${GITHUB_JIRA_COMMON_CREDS_USR} ${GITHUB_JIRA_COMMON_CREDS_PSW} \${tid}\"
 					sudo docker rm -f \$(sudo docker ps -a -q)
                     			"""
         			}
