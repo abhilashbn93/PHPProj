@@ -19,7 +19,7 @@ do
         TKEY[$i]=$(cut -d "\"" -f1 get_test_key.json_"$j"_temp4|tail -n 1)
 done
 
-#echo "${TKEY[*]}"
+echo "${TKEY[*]}"
 
 rm -rf get_test_key.json*
 
@@ -34,13 +34,13 @@ declare -a ID
 
 for (( i=0; i <= $n; ++i ))
 do
-	j=$[$i+2]
+        j=$[$i+2]
         sed "s/\"outwardIssue\"/#\"outwardIssue\"/g" get_test_id.json > get_test_id.json_1
         cut -d "#" -f"$j" get_test_id.json_1 > get_test_id.json_"$j"
-		sed "0,/\"key\":\"${TKEY[$i]}\"/{s/\"key\":\"${TKEY[$i]}\"/@\"key\":\"${TKEY[$i]}\"/}" get_test_id.json_"$j" > get_test_id.json_"$j"_temp1
-		cut -d "@" -f1 get_test_id.json_"$j"_temp1 > get_test_id.json_"$j"_temp2
-		ID[$i]=$(echo $(cat get_test_id.json_"$j"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/')
-		echo $(cat get_test_id.json_"$j"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/'
+                sed "0,/\"key\":\"${TKEY[$i]}\"/{s/\"key\":\"${TKEY[$i]}\"/@\"key\":\"${TKEY[$i]}\"/}" get_test_id.json_"$j" > get_test_id.json_"$j"_temp1
+                cut -d "@" -f1 get_test_id.json_"$j"_temp1 > get_test_id.json_"$j"_temp2
+                ID[$i]=$(echo $(cat get_test_id.json_"$j"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/')
+                echo $(cat get_test_id.json_"$j"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/'
 done
 
 rm -rf get_test_id.json*
@@ -53,15 +53,15 @@ declare -a EXID
 
 for (( i=0; i < $n; ++i ))
 do
-	j=$[$i+2]
-	curl -D- -u "$1":"$2" -X GET -H "Content-Type: application/json" "http://52.179.141.170/rest/zapi/latest/execution?issueId=${ID[$i]}" > get_test_execution_id.json_"$i"
-	sed "0,/\"orderId\"/{s/\"orderId\"/@\"orderId\"/}" get_test_execution_id.json_"$i" > get_test_execution_id.json_"$i"_temp1
-	cut -d "@" -f1 get_test_execution_id.json_"$i"_temp1 > get_test_execution_id.json_"$i"_temp2
-	EXID[$i]=$(echo $(cat get_test_execution_id.json_"$i"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/')
+        j=$[$i+2]
+        curl -D- -u "$1":"$2" -X GET -H "Content-Type: application/json" "http://52.179.141.170/rest/zapi/latest/execution?issueId=${ID[$i]}" > get_test_execution_id.json_"$i"
+        sed "0,/\"orderId\"/{s/\"orderId\"/@\"orderId\"/}" get_test_execution_id.json_"$i" > get_test_execution_id.json_"$i"_temp1
+        cut -d "@" -f1 get_test_execution_id.json_"$i"_temp1 > get_test_execution_id.json_"$i"_temp2
+        EXID[$i]=$(echo $(cat get_test_execution_id.json_"$i"_temp2)|sed -e 's/.*[^0-9]\([0-9]\+\)[^0-9]*$/\1/')
 done
 rm -rf get_test_execution_id.json*
 
-echo "${EXID[*]}"
+#echo "${EXID[*]}"
 ###Update the Test Status in Zephyr based on the Test Execution ID obtained###
 
 curl -D- -u "$1":"$2" -X PUT --data '{"status":"1"}' -H "Content-Type: application/json" "http://52.179.141.170/rest/zapi/latest/execution/$EXID/execute"
