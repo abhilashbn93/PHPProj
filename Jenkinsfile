@@ -104,7 +104,7 @@ pipeline  {
 					)
 					}
 					sh """
-					sudo docker build -t devopsedu/webapp '/home/ubuntu/jenkins/workspace/Run_Selenium_Test/'
+					sudo docker build -t devopsedu/webapp '/home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/'
 					sudo docker run -itd -p 8082:80 devopsedu/webapp
 					sudo docker ps -a
 					"""
@@ -128,8 +128,8 @@ pipeline  {
 							sh """
 							echo "${test_id[i]}" > tid_temp		
 							cat tid_temp
-							cd "/opt/jenkins_home/jobs/Deloitte_Pipeline/branches/master/workspace/"
-							sudo su -c \"java -jar /home/ubuntu/jenkins/workspace/Deloitte_Pipeline/AppTest.jar\" ubuntu
+							cd "/home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/"
+							sudo su -c \"java -jar /home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/AppTest.jar\" ubuntu
 							bash -c \" source ./update_passed_test.sh ${GITHUB_COMMON_CREDS_USR} ${GITHUB_COMMON_CREDS_PSW} ${test_id[i]} \"
 							"""
 							i++
