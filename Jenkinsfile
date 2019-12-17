@@ -81,6 +81,7 @@ pipeline  {
 					sh """
 					set +e
 					sudo /opt/puppetlabs/bin/puppet agent -t > puppet.out 2>&1
+					set -e
 					"""
 					}	
 				}
