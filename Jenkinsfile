@@ -59,7 +59,7 @@ pipeline  {
 					sudo /opt/puppetlabs/bin/puppet cert list
 					#sudo /opt/puppetlabs/bin/puppet cert sign "slave.joha155tytoeblqpel2h10tp0f.bx.internal.cloudapp.net"
 					"""
-						
+					}	
 				}
 					
 		}
@@ -81,7 +81,7 @@ pipeline  {
 					sh """
 					sudo /opt/puppetlabs/bin/puppet agent -t
 					"""
-						
+					}	
 				}
 					
 		}
@@ -100,7 +100,7 @@ pipeline  {
 						])
 						]
 					)
-
+					}
 					sh """
 					sudo docker build -t devopsedu/webapp '/home/ubuntu/jenkins/workspace/Run_Selenium_Test/'
 					sudo docker run -itd -p 8082:80 devopsedu/webapp
@@ -153,7 +153,7 @@ pipeline  {
 					sh """
 					sudo docker rm -f \$(sudo docker ps -a -q)
 					"""
-						
+					}	
 				}
 					
 		}
