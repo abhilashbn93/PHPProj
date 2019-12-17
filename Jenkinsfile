@@ -1,5 +1,6 @@
 // Declare the variable i for its usage in the for loop; The variable is required to selectively update the individual issues associated to the Story ID
 def i = 0
+def j = 0
 
 pipeline  {
     
