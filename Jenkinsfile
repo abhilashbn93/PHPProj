@@ -46,12 +46,14 @@ pipeline  {
 			agent { label 'master'}
 
 				steps  {
-						
-					options {
-						office365ConnectorWebhooks([
-							[name: "abhilashbn", url: "https://outlook.office.com/webhook/0e88df31-c89a-4d69-9c46-a9ab765cf287@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/91b307785846403caab46082c242bdc7/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
-						])			
-					}
+									
+					script	{
+					properties (
+						[office365ConnectorWebhooks([
+							[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
+						])
+						]
+					)					
 
 					sh """
 					sudo /opt/puppetlabs/bin/puppet cert list
@@ -68,11 +70,13 @@ pipeline  {
 
 				steps  {
 						
-					options {
-						office365ConnectorWebhooks([
-							[name: "abhilashbn", url: "https://outlook.office.com/webhook/0e88df31-c89a-4d69-9c46-a9ab765cf287@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/91b307785846403caab46082c242bdc7/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
-						])			
-					}
+					script	{
+					properties (
+						[office365ConnectorWebhooks([
+							[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
+						])
+						]
+					)
 
 					sh """
 					sudo /opt/puppetlabs/bin/puppet agent -t
@@ -89,11 +93,13 @@ pipeline  {
 
 				steps  {
 						
-					options {
-						office365ConnectorWebhooks([
-							[name: "abhilashbn", url: "https://outlook.office.com/webhook/bc9bce4f-c503-4bb2-9ef0-2fd6a4f317e4@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/81d34511d519485f89c498c853d51962/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
-						])			
-					}
+					script	{
+					properties (
+						[office365ConnectorWebhooks([
+							[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
+						])
+						]
+					)
 
 					sh """
 					sudo docker build -t devopsedu/webapp '/home/ubuntu/jenkins/workspace/Run_Selenium_Test/'
@@ -136,11 +142,13 @@ pipeline  {
 
 				steps  {
 						
-					options {
-						office365ConnectorWebhooks([
-							[name: "abhilashbn", url: "https://outlook.office.com/webhook/0e88df31-c89a-4d69-9c46-a9ab765cf287@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/91b307785846403caab46082c242bdc7/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
-						])			
-					}
+					script	{
+					properties (
+						[office365ConnectorWebhooks([
+							[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
+						])
+						]
+					)
 
 					sh """
 					sudo docker rm -f \$(sudo docker ps -a -q)
