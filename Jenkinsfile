@@ -79,7 +79,7 @@ pipeline  {
 					)
 
 					sh """
-					sudo /opt/puppetlabs/bin/puppet agent -t > puppet.out
+					sudo /opt/puppetlabs/bin/puppet agent -t > puppet.out 2>&1
 					"""
 					}	
 				}
