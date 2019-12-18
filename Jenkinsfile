@@ -30,7 +30,7 @@ pipeline  {
 					//	])
 					//	]
 					//)
-					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/9707c6173c2e4df58bcefdf1ec90f76a/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to install puppet agent on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
+					office365ConnectorSend name: "Dev", webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/9707c6173c2e4df58bcefdf1ec90f76a/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to install puppet agent on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
 					sh """				    
 					sudo wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
 					sudo dpkg -i puppetlabs-release-pc1-xenial.deb
