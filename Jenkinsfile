@@ -41,7 +41,7 @@ pipeline  {
 					sudo systemctl enable puppet
 					sudo systemctl status puppet
 					"""					
-					}	
+					//}	
 				}
 			
 				post {
