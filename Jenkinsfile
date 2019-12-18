@@ -28,11 +28,8 @@ pipeline  {
 					//	])
 					//	]
 					//)
-					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287',
-            message: "Started job ${JOB_NAME} for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build",
-            status: 'Build Started'
-
-					sh """
+					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to install puppet agent on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
+					sh """				    
 					sudo wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
 					sudo dpkg -i puppetlabs-release-pc1-xenial.deb
 					sudo apt-get update -y
@@ -49,28 +46,15 @@ pipeline  {
 					success  {
 
 						node ( 'slave_node' )	{
-							script	{
-							properties (
-								[office365ConnectorWebhooks([
-									[name: "abhilashbn", webhookUrl: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", status: 'SUCCESS', color: 'Yellow', message: 'started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)',]
-								])
-								]
-							)
-							}
+							office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Successfully completed the job to install puppet agent on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Succeeded'
         					}
 					}
+					
 					failure  {
 
 						node ( 'slave_node' )	{
-							script	{
-							properties (
-								[office365ConnectorWebhooks([
-									[name: "abhilashbn", webhookUrl: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", status: 'FAILED', color: 'Yellow', message: 'started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)',]
-								])
-								]
-							)
-							}
-        					}
+							office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "The job to install puppet agent on the test node failed for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Failed'
+						}       					
 					}					
 				}
 		}
@@ -81,21 +65,30 @@ pipeline  {
 
 				steps  {
 									
-					script	{
-					properties (
-						[office365ConnectorWebhooks([
-							[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
-						])
-						]
-					)					
-
+					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to sign the certificate of the puppet master on the staging node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
 					sh """
 					sudo /opt/puppetlabs/bin/puppet cert list
 					#sudo /opt/puppetlabs/bin/puppet cert sign "slave.joha155tytoeblqpel2h10tp0f.bx.internal.cloudapp.net"
 					"""
-					}	
+						
 				}
+				
+				post {
+	
+					success  {
+
+						node ( 'master' )	{
+							office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Successfully completed the job to sign the certificate of the puppet master on the staging node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Succeeded'
+        					}
+					}
 					
+					failure  {
+
+						node ( 'master' )	{
+							office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "The job to sign the certificate of the puppet master on the staging node failed for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Failed'
+						}
+        				}					
+				}
 		}
 
 		stage('Install Docker Agent')  {
@@ -104,22 +97,31 @@ pipeline  {
 
 				steps  {
 						
-					script	{
-					properties (
-						[office365ConnectorWebhooks([
-							[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
-						])
-						]
-					)
-
+					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to install docker agent on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
 					sh """
 					set +e
 					sudo /opt/puppetlabs/bin/puppet agent -t > puppet.out 2>&1
 					set -e
 					"""
-					}	
-				}
 					
+				}	
+				
+				post {
+	
+					success  {
+
+						node ( 'slave_node' )	{
+							office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Successfully completed the job to install docker agent on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Succeeded'
+        					}
+					}
+					
+					failure  {
+
+						node ( 'slave_node' )	{
+							office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "The job to install docker agent on the test node failed for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Failed'
+						}
+        				}					
+				}
 		}
               	
 		
@@ -128,15 +130,8 @@ pipeline  {
 			agent { label 'slave_node'}
 
 				steps  {
-						
-					script	{
-					properties (
-						[office365ConnectorWebhooks([
-							[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
-						])
-						]
-					)
-					}
+
+					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to run selenium automation test on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
 					sh """
 					sudo docker build -t devopsedu/webapp '/home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/'
 					sudo docker run -itd -p 8082:80 devopsedu/webapp
@@ -169,7 +164,33 @@ pipeline  {
 							i++
 						}
 					}							
-				}					
+				}
+				
+				post {
+	
+					success  {
+
+						node ( 'slave_node' )	{
+							office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Successfully tested the dockerized application deployed to the staging node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Succeeded'
+        					}
+					}
+					
+					failure  {
+
+						node ( 'slave_node' )	{
+							office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Testing of the dockerized application deployed to the staging node failed for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Failed'
+							script	{
+								echo 'Test failed'
+                  						sh """
+                    						tid=\$(cat tid_temp)
+                    						echo "\${tid}"
+                   						bash -c \" source ./update_failed_test.sh ${GITHUB_JIRA_COMMON_CREDS_USR} ${GITHUB_JIRA_COMMON_CREDS_PSW} DEL-1\"
+								sudo docker rm -f \$(sudo docker ps -a -q)
+                    						"""
+        						}
+						}
+        				}					
+				}
 		}
 
 		stage('Delete Running Container')  {
@@ -177,38 +198,46 @@ pipeline  {
 			agent { label 'slave_node'}
 
 				steps  {
-						
-					script	{
-					properties (
-						[office365ConnectorWebhooks([
-							[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifyBuildStart: true, notifyAborted: true, notifyNotBuilt: true, notifyBackToNormal: true, notifyFailure: true, notifyRepeatedFailure: true, notifySuccess: true, notifyUnstable: true]
-						])
-						]
-					)
 
+					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to delete the docker container on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
 					sh """
 					sudo docker rm -f \$(sudo docker ps -a -q)
 					"""
-					}	
 				}
+			
+				post {
+	
+					success  {
+
+						node ( 'slave_node' )	{
+						office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Successfully completed the job to delete docker container on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Succeeded'
+        					}
+					}
 					
-		}
-    }         
+					failure  {
+
+						node ( 'slave_node' )	{
+						office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "The job to delete docker container on the test node failed for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Failed'
+						}
+        				}					
+				}			
+		}  
+    }
+
     post {
 	
+    		success  {
+
+			node ( 'slave_node' )	{
+				office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Successfully completed the CI/CD Pipeline for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'CI/CD Pipeline Build Succeeded'
+        		}
+		}
+					
 		failure  {
 
 			node ( 'slave_node' )	{
-				script	{
-					echo 'Test failed'
-                  			sh """
-                    			tid=\$(cat tid_temp)
-                    			echo "\${tid}"
-                   			bash -c \" source ./update_failed_test.sh ${GITHUB_JIRA_COMMON_CREDS_USR} ${GITHUB_JIRA_COMMON_CREDS_PSW} DEL-1\"
-					sudo docker rm -f \$(sudo docker ps -a -q)
-                    			"""
-        			}
+				office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/385b4cd86d9f43ccbe7f19a7a172efca/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "CI/CD Pipeline did not complete successfully for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'CI/CD Pipeline Build Failed'
 			}
-		}
-	 }
+        	}					
+	}
 }
