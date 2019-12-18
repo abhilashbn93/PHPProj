@@ -3,7 +3,9 @@ def i = 0
 def j = 0
 
 pipeline  {
-    
+    triggers {
+    	pollSCM('') // Enabling being build on Push
+    }
     agent none
     
     environment  {
