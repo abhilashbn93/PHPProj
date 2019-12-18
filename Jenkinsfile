@@ -29,8 +29,8 @@ pipeline  {
 					//	]
 					//)
 					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287',
-            message: 'started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)',
-            status: 'Success'
+            message: "Started job ${JOB_NAME} for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build",
+            status: 'Build Started'
 
 					sh """
 					sudo wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
