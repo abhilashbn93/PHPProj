@@ -158,7 +158,7 @@ pipeline  {
 							echo "${test_id[i]}" > tid_temp		
 							cat tid_temp
 							cd "/home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/"
-							sudo su -c \"java -jar /home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/AppTest_Defect.jar\" ubuntu
+							sudo su -c \"java -jar /home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/AppTest.jar\" ubuntu
 							bash -c \" source ./update_passed_test.sh ${GITHUB_JIRA_COMMON_CREDS_USR} ${GITHUB_JIRA_COMMON_CREDS_PSW} DEL-1 \"
 							"""
 							i++
