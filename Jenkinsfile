@@ -21,13 +21,16 @@ pipeline  {
 
 				steps  {
 						
-					script	{
-					properties (
-						[office365ConnectorWebhooks([
-							[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", status: 'STARTED', color: 'Yellow', message: 'started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)',]
-						])
-						]
-					)
+					//script	{
+					//properties (
+					//	[office365ConnectorWebhooks([
+					//		[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", status: 'STARTED', color: 'Yellow', message: 'started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)',]
+					//	])
+					//	]
+					//)
+					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287',
+            message: 'started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)',
+            status: 'Success'
 
 					sh """
 					sudo wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb
@@ -160,7 +163,7 @@ pipeline  {
 							echo "${test_id[i]}" > tid_temp		
 							cat tid_temp
 							cd "/home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/"
-							sudo su -c \"java -jar /home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/AppTest.jar\" ubuntu
+							sudo su -c \"java -jar /home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/AppTest_Defect.jar\" ubuntu
 							bash -c \" source ./update_passed_test.sh ${GITHUB_JIRA_COMMON_CREDS_USR} ${GITHUB_JIRA_COMMON_CREDS_PSW} DEL-1 \"
 							"""
 							i++
