@@ -70,9 +70,6 @@ pipeline  {
         					}
 					}					
 				}
-	 }
-		
-		
 		}
 		
 		stage('Certificate Sign')  {
