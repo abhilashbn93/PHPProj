@@ -1,5 +1,5 @@
 FROM devopsedu/webapp
-COPY website_defect /var/www/html/website_defect
+COPY website /var/www/html/website
 CMD ["-D", "FOREGROUND"]
 ENTRYPOINT ["/usr/sbin/apachectl"]
 EXPOSE 80
