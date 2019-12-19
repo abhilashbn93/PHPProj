@@ -134,20 +134,20 @@ pipeline  {
 
 				steps  {
 
-					script	{
-					properties (
-						[office365ConnectorWebhooks([
-							[name: "Dev", url: "https://outlook.office.com/webhook/bc9bce4f-c503-4bb2-9ef0-2fd6a4f317e4@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/19ca320a8d624f16ac1512b2d03ec4b1/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifySuccess: true]
-						])
-						]
-					)					
-					//office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/bc9bce4f-c503-4bb2-9ef0-2fd6a4f317e4@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/19ca320a8d624f16ac1512b2d03ec4b1/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to run selenium automation test on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
+					//script	{
+					//properties (
+					//	[office365ConnectorWebhooks([
+					//		[name: "Dev", url: "https://outlook.office.com/webhook/bc9bce4f-c503-4bb2-9ef0-2fd6a4f317e4@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/19ca320a8d624f16ac1512b2d03ec4b1/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifySuccess: true]
+					//	])
+					//	]
+					//)					
+					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/bc9bce4f-c503-4bb2-9ef0-2fd6a4f317e4@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/19ca320a8d624f16ac1512b2d03ec4b1/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to run selenium automation test on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
 					sh """
 					sudo docker build -t devopsedu/webapp '/home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/'
 					sudo docker run -itd -p 8082:80 devopsedu/webapp
 					sudo docker ps -a
 					"""
-					}
+					//}
 					script{
 				
 						def test_id=[] //Groovy Array List to store the list of Test IDs associated with the Story ID 
@@ -208,11 +208,19 @@ pipeline  {
 			agent { label 'slave_node'}
 
 				steps  {
-
-					office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/9707c6173c2e4df58bcefdf1ec90f76a/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to delete the docker container on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
+					script	{
+					properties (
+						[office365ConnectorWebhooks([
+					//		[name: "abhilashbn", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/260ee879bcbc416ba8dd310e1b6f7aa3/0e88df31-c89a-4d69-9c46-a9ab765cf287", status: 'STARTED', color: 'Yellow', message: 'started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)',]
+							[name: "Dev", url: "https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/9707c6173c2e4df58bcefdf1ec90f76a/0e88df31-c89a-4d69-9c46-a9ab765cf287", notifySuccess: true]
+						])
+						]
+					)
+					//office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/5c913c5c-6bc4-4767-a579-b6b67683555e@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/9707c6173c2e4df58bcefdf1ec90f76a/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to delete the docker container on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
 					sh """
 					sudo docker rm -f \$(sudo docker ps -a -q)
 					"""
+					}	
 				}
 			
 				post {
