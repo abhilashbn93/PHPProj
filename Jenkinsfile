@@ -143,8 +143,10 @@ pipeline  {
 					)					
 					//office365ConnectorSend webhookUrl: 'https://outlook.office.com/webhook/bc9bce4f-c503-4bb2-9ef0-2fd6a4f317e4@36da45f1-dd2c-4d1f-af13-5abe46b99921/JenkinsCI/19ca320a8d624f16ac1512b2d03ec4b1/0e88df31-c89a-4d69-9c46-a9ab765cf287', message: "Started the job to run selenium automation test on the test node for the Build Number ${BUILD_NUMBER}. Please check (<${BUILD_URL}|Open>) to verify the Build", status: 'Build Started'
 					sh """
-					sudo docker build -t devopsedu/webapp '/home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/'
-					sudo docker run -itd -p 8082:80 devopsedu/webapp
+					#sudo docker build -t devopsedu/webapp '/home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/'
+					#sudo docker run -itd -p 8082:80 devopsedu/webapp
+					cd /home/ubuntu/jenkins/workspace/Deloitte_Pipeline_master/NodeExpressCRUD && sudo docker-compose build
+					sudo docker-compose up -d
 					sudo docker ps -a
 					"""
 					}
