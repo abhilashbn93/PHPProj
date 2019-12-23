@@ -1,5 +1,8 @@
-FROM devopsedu/webapp
-COPY website /var/www/html/website
-CMD ["-D", "FOREGROUND"]
-ENTRYPOINT ["/usr/sbin/apachectl"]
-EXPOSE 80
+FROM node:8
+WORKDIR /app
+COPY package.json ./
+RUN npm install
+COPY . .
+RUN npm install -g nodemon
+EXPOSE 3000
+CMD nodemon
