@@ -20,11 +20,11 @@ pipeline  {
 		
             stage("SonarQube Analysis") {
             	
-	    	    agent { label 'master'}
+	    	    agent { label 'sonarqube'}
 		    
 		    steps {
                 	
-			withSonarQubeEnv("SonarQube") {
+			withSonarQubeEnv("sonarqube") {
                     		sh "${scannerHome}/bin/sonar-runner -Dsonar.host.url=http://52.184.148.169:9000 -Dproject.settings=sonar-project.properties"
                       	}
             	
@@ -34,7 +34,7 @@ pipeline  {
             
 	    stage("Quality Gate") {
     
-		    agent { label 'master'}
+		    agent { label 'sonarqube'}
 		    
 		    steps {
                 	
