@@ -25,7 +25,7 @@ pipeline  {
 		    steps {
                 	
 			withSonarQubeEnv("SonarQube") {
-                    		sh "${scannerHome}/bin/sonar-runner -Dsonar.host.url=http://20.42.34.78:9000 -Dproject.settings=sonar-project.properties"
+                    		sh "${scannerHome}/bin/sonar-runner -Dsonar.host.url=http://52.184.148.169:9000 -Dproject.settings=sonar-project.properties"
                       	}
             	
 		    }
