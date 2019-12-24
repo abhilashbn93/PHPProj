@@ -12,46 +12,46 @@ pipeline  {
 				
 		GITHUB_COMMON_CREDS = credentials('jenkins-github-common-creds') //Github credentials are mapped to the ID 'jenkins-github-common-creds' setup in Jenkins
 	    	GITHUB_JIRA_COMMON_CREDS = credentials('jenkins-jira-common-creds') //JIRA credentials are mapped to the ID 'jenkins-jira-common-creds' setup in Jenkins
-		//scannerHome = tool name: 'sonarqubescanner'
+		scannerHome = tool name: 'sonarqubescanner'
 	    
     }
     
     stages  { 
 		
-      //      stage("SonarQube Analysis") {
+            stage('SonarQube Analysis') {
             	
-	//    	    agent { label 'master'}
+	    	    agent { label 'master'}
 		    
-	//	    steps {
+		    steps {
                 	
-	//		withSonarQubeEnv("sonarqube") {
-          //          		sh "${scannerHome}/bin/sonar-runner"
-            //          	}
+			withSonarQubeEnv("sonarqube") {
+                  		sh "${scannerHome}/bin/sonar-runner"
+                  	}
             	
-		//    }
+		    }
 		    
-           // }	
+            }	
             
-	    //stage("Quality Gate") {
+	    stage('Quality Gate') {
     
-		//    agent { label 'master'}
+		    agent { label 'master'}
 		    
-		  //  steps {
+		    steps {
                 	
-			//sleep(time: 75, unit: "SECONDS")
-			//script	{
-			//	timeout(time: 5, unit: "MINUTES") {
-			//		def qg = waitForQualityGate()
-			//		echo qg.status
-			//		if (qg.status != 'OK')	{
-			//			error "Pipeline failed due to quality gate failure: ${qg.status}"
-			//		}
-			//	}
-                	//}
+			sleep(time: 75, unit: "SECONDS")
+			script	{
+				timeout(time: 5, unit: "MINUTES") {
+					def qg = waitForQualityGate()
+					echo qg.status
+					if (qg.status != 'OK')	{
+						error "Pipeline failed due to quality gate failure: ${qg.status}"
+					}
+				}
+                	}
             		
-		    //}
+		    }
         
-	 //   }
+	    }
 	    
 	    stage('Install Puppet Agent')  {
 			
