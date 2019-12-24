@@ -25,6 +25,7 @@ pipeline  {
 		    steps {
                 	
 			withSonarQubeEnv("sonarqube") {
+				sh "hostname"
                   		sh "${scannerHome}/bin/sonar-runner"
                   	}
             	
