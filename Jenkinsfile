@@ -33,12 +33,7 @@ pipeline  {
 		    steps {
                 	
 			    sh "echo ${scannerHome}"
-			    withSonarQubeEnv("sonarqube") {
-				   
-                  		sh "${scannerHome}/bin/sonar-runner"
-                  	
-				    
-			    }            	
+			       	
 		    }
 		    
             }
