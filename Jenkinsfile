@@ -18,17 +18,17 @@ pipeline  {
     
     stages  { 
 	    
-	    stage('Certificate Sign')  {
+	    stage('Test')  {
 			
 			agent { label 'master'}
- steps {
+ 		steps {
                 	
 
                   		sh "echo abcd"
                   	}
             	
 		    }
-	    }
+	    
 		
             /* stage('SonarQube Analysis') {
             	
