@@ -14,9 +14,7 @@ pipeline  {
     }
     
     stages  { 
-	      environment  {
-	    		scannerHome = tool 'sonarqubescanner'
-	      }
+	      
 	    stage('Test')  {
 			
 			agent { label 'master'}
@@ -28,14 +26,20 @@ pipeline  {
             	
 		    }
 	     stage('SonarQube Analysis') {
-            	
+            	environment  {
+	    		scannerHome = tool 'sonarqubescanner'
+	      }
 	    	    agent { label 'master'}
 		    
 		    steps {
                 	
 			    sh "echo ${scannerHome}"
+			   withSonarQubeEnv("sonarqube") {
+                  		sh "${scannerHome}/bin/sonar-runner"
+                  	}
 			       	
 		    }
+		     
 		    
             }
 	    
