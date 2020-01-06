@@ -35,7 +35,7 @@ pipeline  {
                 	
 			    sh "echo ${scannerHome}"
 			   withSonarQubeEnv("sonarqube") {
-                  		sh "${scannerHome}/bin/sonar-scanner"
+                  		sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=sonar-js -Dsonar.sources=. -Dsonar.host.url=http://52.184.148.169:9000 -Dsonar.login=2c6a4c3cf949238ee2c929f00cd6cd079fac0f79"
                   	}
 			       	
 		    }
