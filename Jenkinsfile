@@ -61,7 +61,7 @@ pipeline  {
 		    }
         
 	    }
-	    */
+	   
 	    stage('Install Puppet Agent')  {
 			
 			agent { label 'slave_node'}
