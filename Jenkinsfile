@@ -17,8 +17,20 @@ pipeline  {
     }
     
     stages  { 
+	    
+	    stage('Certificate Sign')  {
+			
+			agent { label 'master'}
+ steps {
+                	
+
+                  		sh "echo abcd"
+                  	}
+            	
+		    }
+	    }
 		
-            stage('SonarQube Analysis') {
+            /* stage('SonarQube Analysis') {
             	
 	    	    agent { label 'master'}
 		    
@@ -52,7 +64,7 @@ pipeline  {
 		    }
         
 	    }
-	    
+	    */
 	    stage('Install Puppet Agent')  {
 			
 			agent { label 'slave_node'}
