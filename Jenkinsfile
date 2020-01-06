@@ -32,10 +32,12 @@ pipeline  {
 		    
 		    steps {
                 	
-			withSonarQubeEnv("sonarqube") {
+			    script{
+			    withSonarQubeEnv("sonarqube") {
                   		sh "${scannerHome}/bin/sonar-runner"
                   	}
-            	
+				    
+			    }            	
 		    }
 		    
             }
