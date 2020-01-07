@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 //mongoose.connect('mongodb://localhost/employee')
-  mongoose.connect('mongodb://mongo:27017/employee')
+  mongoose.connect('mongodb://admin:password@52.184.148.169:27017/ccdb?authSource=admin')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
